@@ -1,0 +1,21 @@
+.create-employee-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.create-employee-container .MuiTextField-root {
+  margin-bottom: 20px;
+}
+
+.create-employee-container button {
+  width: 100%;
+}
+
+.create-employee-container h4 {
+  margin-bottom: 20px;
+}
+
+.create-employee-container .MuiTypography-root {
+  margin-bottom: 20px;
+}

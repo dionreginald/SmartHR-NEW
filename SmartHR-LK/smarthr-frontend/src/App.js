@@ -7,6 +7,7 @@ import AdminDashboard from "./AdminDashboard";  // Import AdminDashboard compone
 import ProfilePage from "./ProfilePage";  // Corrected import for ProfilePage component
 import EmployeeList from "./EmployeeList";  // Import EmployeeList component
 import EditProfile from "./EditProfile";  // Import EditProfile component
+import CreateEmployee from "./CreateEmployee";  // Import CreateEmployee component
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/employee-list" element={<EmployeeList />} />
           <Route path="/edit-profile/:employeeId" element={<EditProfile />} />
+          <Route path="/create-employee" element={<CreateEmployee />} /> {/* Add CreateEmployee Route */}
         </Routes>
       </div>
     </Router>

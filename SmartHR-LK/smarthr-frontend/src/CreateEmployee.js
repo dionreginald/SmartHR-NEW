@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Button, TextField, Typography, CircularProgress } from "@mui/material";
-import { useParams, useNavigate } from "react-router-dom";
-import './EditProfile.css';
+import { useNavigate } from "react-router-dom";
+import './CreateEmployee.css';
 
-const EditProfile = () => {
-  const { employeeId } = useParams(); // Get employeeId from URL params
-  const navigate = useNavigate(); // Use navigate hook for navigation
+const CreateEmployee = () => {
+  const navigate = useNavigate();
 
   // State to hold employee data
   const [employee, setEmployee] = useState({
@@ -15,30 +14,11 @@ const EditProfile = () => {
     phone_number: "",
     address: "",
     salary: "",
-    password: "" // Adding password field
+    password: "" // Password field to create new employee
   });
 
   const [loading, setLoading] = useState(false); // State to track loading status
   const [error, setError] = useState(""); // State to track error messages
-
-  // Fetch employee data based on employeeId
-  useEffect(() => {
-    setLoading(true);
-    axios.get(`http://localhost/SmartHR-LK/smarthr-backend/api/getEmployeeById.php?id=${employeeId}`)
-      .then(response => {
-        if (response.data) {
-          setEmployee(response.data);  // Set employee data
-        } else {
-          setError("Employee not found");
-        }
-        setLoading(false);
-      })
-      .catch(error => {
-        setError("Error fetching employee data");
-        setLoading(false);
-        console.log(error);
-      });
-  }, [employeeId]);
 
   // Handle form field changes
   const handleInputChange = (e) => {
@@ -48,7 +28,7 @@ const EditProfile = () => {
     });
   };
 
-  // Handle form submit (PUT request to update employee)
+  // Handle form submit (POST request to create employee)
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -61,36 +41,41 @@ const EditProfile = () => {
     setLoading(true);
     setError(""); // Reset error if any field was invalid
 
-    // Send PUT request to update employee
-    axios.put('http://localhost/SmartHR-LK/smarthr-backend/api/updateEmployee.php', employee)
-      .then(response => {
-        if (response.data.status === 'success') {
-          alert("Employee updated successfully!");
-          navigate("/employee-list");  // Redirect to employee list after saving
+    // Send POST request to create employee
+    axios
+      .post("http://localhost/SmartHR-LK/smarthr-backend/api/createEmployee.php", employee, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.data.status === "success") {
+          alert("Employee created successfully!");
+          navigate("/employee-list"); // Redirect to employee list after creating
         } else {
           setError(response.data.message); // Show specific error message
         }
         setLoading(false);
       })
-      .catch(error => {
-        setError("Error updating employee data");
+      .catch((error) => {
+        setError("Error creating employee data");
         console.log(error);
         setLoading(false);
       });
   };
 
-  if (loading) {
-    return <CircularProgress />; // Show loading spinner while fetching data
-  }
-
   return (
-    <div className="edit-profile-container">
-      <Typography variant="h4" gutterBottom>Edit Employee Profile</Typography>
+    <div className="create-employee-container">
+      <Typography variant="h4" gutterBottom>Create New Employee</Typography>
 
       {/* Display error if there's any */}
-      {error && <Typography variant="body1" color="error" style={{ marginBottom: '20px' }}>{error}</Typography>}
+      {error && (
+        <Typography variant="body1" color="error" style={{ marginBottom: "20px" }}>
+          {error}
+        </Typography>
+      )}
 
-      {/* Form to Edit Employee Details */}
+      {/* Form to Create New Employee */}
       <form onSubmit={handleSubmit}>
         <TextField
           label="Full Name"
@@ -99,7 +84,7 @@ const EditProfile = () => {
           name="full_name"
           value={employee.full_name}
           onChange={handleInputChange}
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: "20px" }}
         />
         <TextField
           label="Email"
@@ -108,7 +93,7 @@ const EditProfile = () => {
           name="email"
           value={employee.email}
           onChange={handleInputChange}
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: "20px" }}
         />
         <TextField
           label="Phone Number"
@@ -117,7 +102,7 @@ const EditProfile = () => {
           name="phone_number"
           value={employee.phone_number}
           onChange={handleInputChange}
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: "20px" }}
         />
         <TextField
           label="Address"
@@ -126,7 +111,7 @@ const EditProfile = () => {
           name="address"
           value={employee.address}
           onChange={handleInputChange}
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: "20px" }}
         />
         <TextField
           label="Salary"
@@ -135,7 +120,7 @@ const EditProfile = () => {
           name="salary"
           value={employee.salary}
           onChange={handleInputChange}
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: "20px" }}
         />
         <TextField
           label="Password"
@@ -144,7 +129,7 @@ const EditProfile = () => {
           name="password"
           value={employee.password}
           onChange={handleInputChange}
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: "20px" }}
           type="password"
         />
 
@@ -152,8 +137,8 @@ const EditProfile = () => {
         {loading ? (
           <CircularProgress />
         ) : (
-          <Button type="submit" variant="contained" color="primary" style={{ marginTop: '20px' }}>
-            Save Changes
+          <Button type="submit" variant="contained" color="primary" style={{ marginTop: "20px" }}>
+            Create Employee
           </Button>
         )}
       </form>
@@ -161,4 +146,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default CreateEmployee;

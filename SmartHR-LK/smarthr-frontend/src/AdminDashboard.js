@@ -129,9 +129,11 @@ const AdminDashboard = () => {
                 onClose={handleClose}
               >
                 <MenuItem>
-                  <Link to="/employee-list">Employee List</Link> {/* Link added here */}
+                  <Link to="/employee-list">Employee List</Link>
                 </MenuItem>
-                <MenuItem>Create Employee</MenuItem>
+                <MenuItem>
+                  <Link to="/create-employee">Create Employee</Link> {/* Link to Create Employee Page */}
+                </MenuItem>
                 <MenuItem>Employee Reports</MenuItem>
               </Menu>
             </div>
