@@ -1,0 +1,18 @@
+/* Add Employee Page Styles */
+.add-employee-container {
+  font-family: 'Montserrat', Arial, sans-serif;
+  padding: 30px;
+  background-color: #F5F5F5;
+}
+
+.add-employee-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.add-employee-form button {
+  margin-top: 20px;
+}

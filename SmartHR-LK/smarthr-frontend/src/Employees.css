@@ -1,0 +1,103 @@
+/* Global Styles for Employee List */
+.employee-list-container {
+  font-family: 'Montserrat', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.employee-list-container.light-mode {
+  background-color: #F5F5F5;
+}
+
+.employee-list-container.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+.navbar {
+  background-color: #00e1ff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-scrolled {
+  background-color: #0089cc;
+}
+
+.navbar-logo {
+  height: 40px;
+  width: auto;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-dropdown-button {
+  background-color: #0089cc;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+.navbar-dropdown-button:hover {
+  background-color: #005a8c;
+}
+
+.employee-list-welcome-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.employee-list-welcome-left {
+  flex: 1;
+}
+
+.employee-list-search {
+  flex: 1;
+  padding: 10px;
+}
+
+.employee-list-search-input {
+  padding: 10px;
+}
+
+.employee-list-table-section {
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.employee-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.employee-list-table th, .employee-list-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.employee-list-table th {
+  background-color: #f2f2f2;
+}
+
+.employee-list-table tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.footer {
+  background-color: #333333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: auto;
+}
