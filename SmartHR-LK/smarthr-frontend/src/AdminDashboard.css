@@ -1,294 +1,507 @@
 /* General Admin Dashboard Styles */
 .admin-dashboard-container {
-  font-family: 'Montserrat', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%; /* Full width */
-  padding-top: 70px; /* Space for navbar */
+    font-family: 'Inter', sans-serif; /* A modern, clean sans-serif font */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%; /* Full width */
+    padding-top: 80px; /* More space for a slightly taller navbar */
+    transition: background-color 0.4s ease, color 0.4s ease; /* Smooth mode transition */
 }
 
 /* Light Mode */
 .light-mode {
-  background-color: #ECF0F1; /* Soft gray background */
-  color: #2C3E50; /* Dark gray text */
+    background-color: #F8F9FA; /* Very light gray, almost white */
+    color: #343A40; /* Dark charcoal text */
 }
 
 /* Dark Mode */
 .dark-mode {
-  background-color: #2C3E50; /* Soft dark blue-gray background */
-  color: #BDC3C7; /* Light gray text */
+    background-color: #212529; /* Deep, rich dark gray */
+    color: #DEE2E6; /* Off-white for text */
 }
 
 /* Navbar Styles */
 .admin-dashboard-navbar {
-  background-color: #1ABC9C; /* Soft teal */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  padding: 10px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 10;
-  width: 100%; /* Full width */
+    background: linear-gradient(to right, #4CAF50, #2E7D32); /* Green gradient */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+    position: fixed; /* Changed to fixed for better stickiness */
+    top: 0;
+    left: 0;
+    padding: 15px 40px; /* Increased padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100; /* Higher z-index */
+    width: 100%;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 /* Dark Mode Navbar */
 .dark-mode .admin-dashboard-navbar {
-  background-color: #16A085; /* Slightly darker teal */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, #1B5E20, #0F4012); /* Darker green gradient */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .admin-dashboard-navbar-logo-link {
-  text-decoration: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
 }
 
 .admin-dashboard-navbar-logo {
-  height: 40px;
-  width: auto;
+    height: 45px; /* Slightly larger logo */
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); /* Subtle logo shadow */
 }
 
 .admin-dashboard-navbar-button {
-  margin-left: 20px;
-  background-color: #16A085; /* Slightly darker teal */
-  color: white;
-  padding: 10px 20px;
-  border-radius: 30px;
-  transition: background-color 0.3s;
+    margin-left: 25px;
+    background-color: #1E88E5; /* Bright blue for action buttons */
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px; /* More rounded */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform for hover effect */
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
 }
 
 .admin-dashboard-navbar-button:hover {
-  background-color: #1ABC9C;
+    background-color: #1565C0; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
 }
 
 /* Navbar Right Buttons */
 .admin-dashboard-navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Increased gap */
 }
 
 /* Dropdown Menu */
 .admin-dashboard-navbar-dropdown {
-  position: relative;
+    position: relative;
 }
 
 .admin-dashboard-navbar-dropdown-button {
-  background-color: #1ABC9C;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    background-color: #007BFF; /* A vibrant blue for the dropdown button */
+    color: white;
+    padding: 10px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+    border: none;
 }
 
 .admin-dashboard-navbar-dropdown-button:hover {
-  background-color: #16A085;
+    background-color: #0056B3;
+    transform: translateY(-2px);
 }
 
 .admin-dashboard-navbar-dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  display: none;
-  min-width: 150px;
+    position: absolute;
+    top: calc(100% + 10px); /* Slightly below the button */
+    right: 0; /* Align to the right of the button */
+    background-color: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Stronger, softer shadow */
+    border-radius: 8px;
+    display: none;
+    min-width: 180px; /* Wider dropdown */
+    overflow: hidden; /* Ensures rounded corners */
+    animation: fadeIn 0.3s ease-out forwards; /* Fade in animation */
+    border: 1px solid #E0E0E0; /* Subtle border */
+}
+
+.dark-mode .admin-dashboard-navbar-dropdown-menu {
+    background-color: #343A40;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid #495057;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .admin-dashboard-navbar-dropdown:hover .admin-dashboard-navbar-dropdown-menu {
-  display: block;
+    display: block;
 }
 
 .admin-dashboard-navbar-dropdown-menu a {
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-  color: #2C3E50;
-  border-bottom: 1px solid #ddd;
+    text-decoration: none;
+    padding: 12px 20px; /* More padding */
+    display: block;
+    color: #343A40;
+    border-bottom: 1px solid #ECEFF1; /* Lighter separator */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 400;
+}
+
+.dark-mode .admin-dashboard-navbar-dropdown-menu a {
+    color: #DEE2E6;
+    border-bottom: 1px solid #495057;
+}
+
+.admin-dashboard-navbar-dropdown-menu a:last-child {
+    border-bottom: none; /* No border on the last item */
 }
 
 .admin-dashboard-navbar-dropdown-menu a:hover {
-  background-color: #f2f2f2;
+    background-color: #E0F2F1; /* Soft hover background */
+    color: #00796B; /* Teal text on hover */
+}
+
+.dark-mode .admin-dashboard-navbar-dropdown-menu a:hover {
+    background-color: #495057;
+    color: #81C784;
 }
 
 /* Welcome Section */
 .admin-dashboard-welcome-section {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px;
-  padding: 10px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertically align items */
+    margin: 30px 40px; /* More margin */
+    padding: 25px 30px; /* More padding */
+    background-color: #ffffff;
+    border-radius: 12px; /* Slightly more rounded */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Softer, wider shadow */
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 /* Dark Mode Welcome Section */
 .dark-mode .admin-dashboard-welcome-section {
-  background-color: #34495E; /* Darker shade for dark mode */
+    background-color: #343A40;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .admin-dashboard-welcome-left {
-  flex: 1;
-  padding-left: 20px;
+    flex: 1;
+    padding-right: 20px; /* Space from right content */
+}
+
+.admin-dashboard-welcome-left h1 {
+    font-size: 2.5em; /* Larger heading */
+    color: #2C3E50;
+    margin-bottom: 10px;
+}
+
+.dark-mode .admin-dashboard-welcome-left h1 {
+    color: #DEE2E6;
+}
+
+.admin-dashboard-welcome-left p {
+    font-size: 1.1em;
+    color: #6C757D;
+}
+
+.dark-mode .admin-dashboard-welcome-left p {
+    color: #B0B0B0;
 }
 
 .admin-dashboard-welcome-right {
-  text-align: right;
-  padding-right: 20px;
+    text-align: right;
+    padding-left: 20px; /* Space from left content */
 }
 
 /* Employee Search and Quick Action Buttons */
 .admin-dashboard-search-and-actions {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  margin-top: 30px;
-  width: 80%;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    margin-top: 30px;
+    width: 100%; /* Use full width and let padding control it */
+    max-width: 1400px; /* A bit wider max width */
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 20px; /* Gap for wrapping */
 }
 
 /* Separate Search and Quick Action Buttons */
 .admin-dashboard-search-container {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start; /* Left-align the search bar */
-  margin-right: 30px;
+    flex: 2; /* Takes up more space */
+    position: relative; /* For the search icon */
+    margin-right: 30px;
+    min-width: 280px; /* Minimum width to prevent squishing */
 }
 
 .admin-dashboard-search-input {
-  font-size: 1.1em;
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 2px solid #1ABC9C;
-  padding-left: 40px; /* Space for the search icon */
+    font-size: 1.1em;
+    width: 100%;
+    padding: 14px 15px 14px 50px; /* More padding, space for icon */
+    border-radius: 30px; /* Pill shape */
+    border: 2px solid #007BFF; /* Blue border */
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft shadow */
+    transition: all 0.3s ease;
+    color: #343A40;
 }
+
+.dark-mode .admin-dashboard-search-input {
+    background-color: #343A40;
+    border-color: #0056B3;
+    color: #DEE2E6;
+}
+
+.admin-dashboard-search-input:focus {
+    outline: none;
+    border-color: #0056B3; /* Darker blue on focus */
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25); /* Focus ring */
+}
+
+.admin-dashboard-search-container::before {
+    content: "\f002"; /* FontAwesome search icon */
+    font-family: "Font Awesome 5 Free"; /* Make sure you link FontAwesome */
+    font-weight: 900;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #007BFF;
+    font-size: 1.2em;
+}
+
+.dark-mode .admin-dashboard-search-container::before {
+    color: #0056B3;
+}
+
 
 /* Quick Action Buttons */
 .admin-dashboard-quick-actions {
-  display: flex;
-  justify-content: flex-end; /* Align the buttons to the right */
-  gap: 20px; /* Space between buttons */
-  flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px; /* Slightly reduced gap for more buttons */
+    flex: 1; /* Allows it to shrink/grow */
+    min-width: 300px; /* Minimum width for buttons */
 }
 
 .admin-dashboard-quick-action-button button {
-  width: 150px;
-  font-size: 0.9em;
-  padding: 12px;
-  background-color: #1ABC9C;
-  color: white;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-  border: none;
+    flex-grow: 1; /* Allow buttons to grow */
+    font-size: 1em;
+    padding: 12px 20px;
+    background: linear-gradient(to right, #28A745, #218838); /* Success green gradient */
+    color: white;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2); /* Subtle blue shadow */
+    font-weight: 500;
 }
 
 .admin-dashboard-quick-action-button button:hover {
-  background-color: #16A085;
+    background: linear-gradient(to right, #218838, #1E7E34); /* Darker green on hover */
+    transform: translateY(-3px); /* More pronounced lift */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+.admin-dashboard-quick-action-button button:active {
+    transform: translateY(0); /* Press down effect */
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
 }
 
 /* Chart Section */
 .admin-dashboard-charts-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-  padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    padding: 0 40px;
+    gap: 30px; /* Space between charts */
+    flex-wrap: wrap; /* Allow charts to wrap */
 }
 
 .admin-dashboard-chart-wrapper {
-  flex: 1;
-  padding: 20px;
-  margin: 0 10px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 400px; /* Ensures charts don't get too small */
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 /* Dark Mode Chart Wrapper */
 .dark-mode .admin-dashboard-chart-wrapper {
-  background-color: #34495E;
-}
-
-.admin-dashboard-chart-box {
-  padding: 20px;
+    background-color: #343A40;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .admin-dashboard-leave-chart {
-  width: 100%;
-  height: 300px;
+    width: 100%;
+    height: 350px; /* Slightly taller charts */
 }
 
 .admin-dashboard-chart-heading {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #2C3E50;
-  margin-bottom: 20px;
+    font-size: 1.8em; /* Larger heading */
+    font-weight: 600; /* Semi-bold */
+    color: #2C3E50;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #E0E0E0; /* Subtle underline */
+    padding-bottom: 10px;
 }
 
 .dark-mode .admin-dashboard-chart-heading {
-  font-size: 1.5em;
-  color: #ffffff;
-  margin-bottom: 20px;
+    color: #DEE2E6;
+    border-color: #495057;
 }
 
 /* Employee Table Section */
 .admin-dashboard-employee-table-section {
-  padding: 20px;
-  margin-top: 40px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    margin: 40px; /* Consistent margin */
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 /* Dark Mode Employee Table Section */
 .dark-mode .admin-dashboard-employee-table-section {
-  background-color: #34495E;
+    background-color: #343A40;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .admin-dashboard-employee-table table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #ddd;
-  max-height: 300px;
-  overflow-y: auto; /* Scrollable table */
+    width: 100%;
+    border-collapse: separate; /* Use separate for rounded borders */
+    border-spacing: 0; /* Remove default spacing */
+    border: 1px solid #E0E0E0; /* Lighter border */
+    border-radius: 8px; /* Rounded table corners */
+    overflow: hidden; /* Ensures rounded corners on content */
 }
 
-.admin-dashboard-employee-table th, .admin-dashboard-employee-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.dark-mode .admin-dashboard-employee-table table {
+    border: 1px solid #495057;
+}
+
+.admin-dashboard-employee-table th,
+.admin-dashboard-employee-table td {
+    padding: 15px 20px; /* More padding */
+    text-align: left;
+    border-bottom: 1px solid #E0E0E0; /* Lighter separator */
+    transition: background-color 0.2s ease;
+}
+
+.dark-mode .admin-dashboard-employee-table th,
+.dark-mode .admin-dashboard-employee-table td {
+    border-bottom: 1px solid #495057;
 }
 
 .admin-dashboard-employee-table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
+    background-color: #F0F2F5; /* Soft background for headers */
+    font-weight: 600;
+    color: #495057;
+    position: sticky; /* Sticky headers for scrollable tables */
+    top: 0;
+    z-index: 1; /* Ensures header stays above content */
 }
 
-.admin-dashboard-employee-table tr:nth-child(odd) {
-  background-color: #f9f9f9; /* Alternate row color */
+.dark-mode .admin-dashboard-employee-table th {
+    background-color: #495057;
+    color: #DEE2E6;
+}
+
+.admin-dashboard-employee-table tr:nth-child(even) { /* Changed to even for better contrast */
+    background-color: #F8F9FA;
+}
+
+.dark-mode .admin-dashboard-employee-table tr:nth-child(even) {
+    background-color: #2F323A;
+}
+
+.admin-dashboard-employee-table tr:hover {
+    background-color: #E6F7FF; /* Light blue hover for rows */
+}
+
+.dark-mode .admin-dashboard-employee-table tr:hover {
+    background-color: #3B424B;
+}
+
+.admin-dashboard-employee-table tr:last-child td {
+    border-bottom: none; /* No border on the last row */
 }
 
 /* Footer */
 .admin-dashboard-footer {
-  background-color: #333333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  margin-top: auto;
+    background-color: #343A40; /* Darker charcoal */
+    color: white;
+    padding: 25px;
+    text-align: center;
+    margin-top: auto;
+    font-size: 0.95em;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1); /* Shadow at the top of footer */
+    transition: background-color 0.4s ease;
 }
 
 /* Dark Mode Footer */
 .dark-mode .admin-dashboard-footer {
-  background-color: #2C3E50; /* Dark blue-grey */
+    background-color: #212529; /* Deep dark for footer */
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .admin-dashboard-footer p {
-  margin: 0;
+    margin: 0;
+    opacity: 0.9; /* Slightly transparent for softness */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .admin-dashboard-navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+    }
+
+    .admin-dashboard-navbar-right {
+        margin-top: 15px;
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .admin-dashboard-welcome-section,
+    .admin-dashboard-search-and-actions,
+    .admin-dashboard-charts-container,
+    .admin-dashboard-employee-table-section {
+        margin: 20px;
+        padding: 20px;
+        flex-direction: column; /* Stack elements */
+        align-items: stretch; /* Stretch to fill width */
+    }
+
+    .admin-dashboard-search-container {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .admin-dashboard-quick-actions {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .admin-dashboard-quick-action-button button {
+        width: auto; /* Let content define width */
+        flex-grow: 1; /* Allow buttons to expand */
+    }
+
+    .admin-dashboard-chart-wrapper {
+        min-width: unset; /* Remove min-width on small screens */
+        width: 100%;
+        margin: 0 0 20px 0; /* Add bottom margin between stacked charts */
+    }
+
+    .admin-dashboard-charts-container {
+        gap: 0; /* Remove gap when stacking */
+    }
 }

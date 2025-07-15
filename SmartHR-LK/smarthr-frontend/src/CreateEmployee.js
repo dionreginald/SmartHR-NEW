@@ -1,47 +1,45 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Button, TextField, Typography, CircularProgress } from "@mui/material";
+import { Button, TextField, Typography, CircularProgress, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import './CreateEmployee.css';
 
 const CreateEmployee = () => {
   const navigate = useNavigate();
 
-  // State to hold employee data
   const [employee, setEmployee] = useState({
     full_name: "",
     email: "",
     phone_number: "",
     address: "",
     salary: "",
-    password: "" // Password field to create new employee
+    password: "",
   });
 
-  const [loading, setLoading] = useState(false); // State to track loading status
-  const [error, setError] = useState(""); // State to track error messages
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  // Handle form field changes
   const handleInputChange = (e) => {
     setEmployee({
       ...employee,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  // Handle form submit (POST request to create employee)
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Check if fields are empty
-    if (!employee.full_name || !employee.email || !employee.phone_number || !employee.address || !employee.salary || !employee.password) {
-      setError("Please fill all fields before submitting");
-      return;
+    for (const key in employee) {
+      if (employee[key] === "") {
+        setError("Please fill all fields before submitting.");
+        return;
+      }
     }
 
     setLoading(true);
-    setError(""); // Reset error if any field was invalid
+    setError("");
+    setSuccess("");
 
-    // Send POST request to create employee
     axios
       .post("http://localhost/SmartHR-LK/smarthr-backend/api/createEmployee.php", employee, {
         headers: {
@@ -50,99 +48,105 @@ const CreateEmployee = () => {
       })
       .then((response) => {
         if (response.data.status === "success") {
-          alert("Employee created successfully!");
-          navigate("/employee-list"); // Redirect to employee list after creating
+          setSuccess("Employee created successfully!");
+          setTimeout(() => navigate("/employee-list"), 2000);
         } else {
-          setError(response.data.message); // Show specific error message
+          setError(response.data.message || "An unknown error occurred.");
         }
-        setLoading(false);
       })
-      .catch((error) => {
-        setError("Error creating employee data");
-        console.log(error);
+      .catch((err) => {
+        setError("Error creating employee. Please check your connection.");
+        console.error("API Error:", err);
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
 
   return (
-    <div className="create-employee-container">
-      <Typography variant="h4" gutterBottom>Create New Employee</Typography>
+    <Box sx={{ maxWidth: 500, mx: "auto", mt: 4, p: 3, boxShadow: 3, borderRadius: 2 }}>
+      <Typography variant="h4" gutterBottom align="center">
+        Create New Employee
+      </Typography>
 
-      {/* Display error if there's any */}
-      {error && (
-        <Typography variant="body1" color="error" style={{ marginBottom: "20px" }}>
-          {error}
-        </Typography>
-      )}
-
-      {/* Form to Create New Employee */}
-      <form onSubmit={handleSubmit}>
+      <Box component="form" onSubmit={handleSubmit} noValidate>
         <TextField
           label="Full Name"
           variant="outlined"
           fullWidth
+          required
           name="full_name"
           value={employee.full_name}
           onChange={handleInputChange}
-          style={{ marginBottom: "20px" }}
+          sx={{ mb: 2 }}
         />
         <TextField
           label="Email"
           variant="outlined"
           fullWidth
+          required
           name="email"
           value={employee.email}
           onChange={handleInputChange}
-          style={{ marginBottom: "20px" }}
+          sx={{ mb: 2 }}
         />
         <TextField
           label="Phone Number"
           variant="outlined"
           fullWidth
+          required
           name="phone_number"
           value={employee.phone_number}
           onChange={handleInputChange}
-          style={{ marginBottom: "20px" }}
+          sx={{ mb: 2 }}
         />
         <TextField
           label="Address"
           variant="outlined"
           fullWidth
+          required
           name="address"
           value={employee.address}
           onChange={handleInputChange}
-          style={{ marginBottom: "20px" }}
+          sx={{ mb: 2 }}
         />
         <TextField
           label="Salary"
           variant="outlined"
           fullWidth
+          required
           name="salary"
+          type="number"
           value={employee.salary}
           onChange={handleInputChange}
-          style={{ marginBottom: "20px" }}
+          sx={{ mb: 2 }}
         />
         <TextField
           label="Password"
           variant="outlined"
           fullWidth
+          required
           name="password"
+          type="password"
           value={employee.password}
           onChange={handleInputChange}
-          style={{ marginBottom: "20px" }}
-          type="password"
+          sx={{ mb: 2 }}
         />
 
-        {/* Show loading spinner while data is being processed */}
-        {loading ? (
-          <CircularProgress />
-        ) : (
-          <Button type="submit" variant="contained" color="primary" style={{ marginTop: "20px" }}>
-            Create Employee
-          </Button>
-        )}
-      </form>
-    </div>
+        {success && <Typography color="success.main">{success}</Typography>}
+        {error && <Typography color="error">{error}</Typography>}
+
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <Button type="submit" variant="contained" color="primary" size="large">
+              Create Employee
+            </Button>
+          )}
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

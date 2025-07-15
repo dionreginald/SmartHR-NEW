@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { AppBar, Toolbar, Typography, Button, Menu, MenuItem, Switch, TextField, Modal } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for the back button
+import {
+  AppBar, Toolbar, Typography, Button, Menu, MenuItem, Switch,
+  TextField, Modal
+} from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import './EmployeeList.css';
 
 const EmployeeList = () => {
@@ -15,11 +17,15 @@ const EmployeeList = () => {
   const [anchorElLeaveRequests, setAnchorElLeaveRequests] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const navigate = useNavigate();  // useNavigate for the back button
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost/SmartHR-LK/smarthr-backend/api/getEmployees.php')
-      .then(response => setEmployees(response.data))
+      .then(response => {
+        console.log('Fetched employees:', response.data); // Debug API response
+        const data = response.data;
+        setEmployees(Array.isArray(data) ? data : data.employees || []);
+      })
       .catch(error => console.log(error));
 
     window.addEventListener("scroll", handleScroll);
@@ -27,11 +33,7 @@ const EmployeeList = () => {
   }, []);
 
   const handleScroll = () => {
-    if (window.scrollY > 50) {
-      setScrolled(true);
-    } else {
-      setScrolled(false);
-    }
+    setScrolled(window.scrollY > 50);
   };
 
   const handleSearch = (e) => setSearchTerm(e.target.value);
@@ -47,11 +49,11 @@ const EmployeeList = () => {
   };
 
   const handleBackButtonClick = () => {
-    navigate(-1);  // Navigate back to the previous page
+    navigate(-1);
   };
 
   const handleEditProfile = (employeeId) => {
-    navigate(`/edit-profile/${employeeId}`);  // Navigate to the edit profile page (you need to create it)
+    navigate(`/edit-profile/${employeeId}`);
   };
 
   const handleMenuClickEmployees = (event) => setAnchorElEmployees(event.currentTarget);
@@ -63,7 +65,7 @@ const EmployeeList = () => {
     setAnchorElLeaveRequests(null);
   };
 
-  const handleDarkModeToggle = () => setDarkMode(prevMode => !prevMode);
+  const handleDarkModeToggle = () => setDarkMode(prev => !prev);
 
   return (
     <div className={`employee-list-container ${darkMode ? "dark-mode" : "light-mode"}`}>
@@ -79,21 +81,11 @@ const EmployeeList = () => {
           <div className="navbar-right">
             {/* Employees Dropdown */}
             <div className="navbar-dropdown">
-              <Button
-                color="inherit"
-                className="navbar-dropdown-button"
-                onClick={handleMenuClickEmployees}
-              >
+              <Button color="inherit" onClick={handleMenuClickEmployees}>
                 Employees
               </Button>
-              <Menu
-                anchorEl={anchorElEmployees}
-                open={Boolean(anchorElEmployees)}
-                onClose={handleCloseMenus}
-              >
-                <MenuItem>
-                  <Link to="/employee-list">Employee List</Link> {/* Link added here */}
-                </MenuItem>
+              <Menu anchorEl={anchorElEmployees} open={Boolean(anchorElEmployees)} onClose={handleCloseMenus}>
+                <MenuItem><Link to="/employee-list">Employee List</Link></MenuItem>
                 <MenuItem>Create Employee</MenuItem>
                 <MenuItem>Employee Reports</MenuItem>
               </Menu>
@@ -101,18 +93,10 @@ const EmployeeList = () => {
 
             {/* Payroll Dropdown */}
             <div className="navbar-dropdown">
-              <Button
-                color="inherit"
-                className="navbar-dropdown-button"
-                onClick={handleMenuClickPayroll}
-              >
+              <Button color="inherit" onClick={handleMenuClickPayroll}>
                 Payroll
               </Button>
-              <Menu
-                anchorEl={anchorElPayroll}
-                open={Boolean(anchorElPayroll)}
-                onClose={handleCloseMenus}
-              >
+              <Menu anchorEl={anchorElPayroll} open={Boolean(anchorElPayroll)} onClose={handleCloseMenus}>
                 <MenuItem>Generate Payroll</MenuItem>
                 <MenuItem>View Payroll</MenuItem>
               </Menu>
@@ -120,18 +104,10 @@ const EmployeeList = () => {
 
             {/* Leave Requests Dropdown */}
             <div className="navbar-dropdown">
-              <Button
-                color="inherit"
-                className="navbar-dropdown-button"
-                onClick={handleMenuClickLeaveRequests}
-              >
+              <Button color="inherit" onClick={handleMenuClickLeaveRequests}>
                 Leave Requests
               </Button>
-              <Menu
-                anchorEl={anchorElLeaveRequests}
-                open={Boolean(anchorElLeaveRequests)}
-                onClose={handleCloseMenus}
-              >
+              <Menu anchorEl={anchorElLeaveRequests} open={Boolean(anchorElLeaveRequests)} onClose={handleCloseMenus}>
                 <MenuItem>Approve Requests</MenuItem>
                 <MenuItem>View Requests</MenuItem>
               </Menu>
@@ -172,32 +148,34 @@ const EmployeeList = () => {
               </tr>
             </thead>
             <tbody>
-              {employees
-                .filter(employee =>
-                  employee.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                  employee.email.toLowerCase().includes(searchTerm.toLowerCase())
-                )
-                .map(employee => (
-                  <tr key={employee.id}>
-                    <td>{employee.id}</td>
-                    <td>{employee.full_name}</td>
-                    <td>{employee.email}</td>
-                    <td>{employee.phone_number}</td>
-                    <td>
-                      <Button variant="contained" color="primary" onClick={() => handleOpen(employee)}>
-                        View Profile
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => handleEditProfile(employee.id)}
-                        style={{ marginLeft: '10px' }}
-                      >
-                        Edit Profile
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
+              {Array.isArray(employees) && employees.length > 0 ? (
+                employees
+                  .filter(emp =>
+                    emp.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    emp.email.toLowerCase().includes(searchTerm.toLowerCase())
+                  )
+                  .map(emp => (
+                    <tr key={emp.id}>
+                      <td>{emp.id}</td>
+                      <td>{emp.full_name}</td>
+                      <td>{emp.email}</td>
+                      <td>{emp.phone_number}</td>
+                      <td>
+                        <Button variant="contained" color="primary" onClick={() => handleOpen(emp)}>
+                          View Profile
+                        </Button>
+                        <Button variant="contained" color="secondary" style={{ marginLeft: '10px' }}
+                          onClick={() => handleEditProfile(emp.id)}>
+                          Edit Profile
+                        </Button>
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                <tr>
+                  <td colSpan="5">No employee data available.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
